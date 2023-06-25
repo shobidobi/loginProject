@@ -8,7 +8,10 @@ import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.List;
-
+/**
+ * @version 25/06/2023
+ * @author Ariel Dobkin
+ */
 public class LoginPanel extends JDialog {
     private JTextField tfUserName;
     private JPasswordField tfPassword;
@@ -17,6 +20,9 @@ public class LoginPanel extends JDialog {
     private JPanel LoginForm;
 
 
+    /**
+     * @param parent Constructor initialization of the parent
+     */
     public LoginPanel(JFrame parent){
         super(parent);
         setTitle("LoginForm");
@@ -55,7 +61,6 @@ public class LoginPanel extends JDialog {
             }
         });
         setVisible(true);
-
     }
     public UsersEntity user;
 
@@ -66,33 +71,8 @@ public class LoginPanel extends JDialog {
      */
     private UsersEntity getAuthenticatedUser(String userName, String password) {
         user=null;
-        EntityManagerFactory entityManagerFactory= Persistence.createEntityManagerFactory("default");
-        EntityManager entityManager=entityManagerFactory.createEntityManager();
-        EntityTransaction transaction=entityManager.getTransaction();
-        try {
-            transaction.begin();
-            Query selectDetails=entityManager.createQuery("SELECT e from UsersEntity e" +
-                    " WHERE userName=:u and password=:p");
-            selectDetails.setParameter("u",userName);
-            selectDetails.setParameter("p",password);
-            List<UsersEntity> users=selectDetails.getResultList();
-            if (users.size()==0){return null;}
-            else{
-                //Enter details to user instance.
-                user=new UsersEntity();
-                user.setUserName(users.get(0).getUserName());
-                user.setPassword(users.get(0).getPassword());
-            }
-            transaction.commit();
-        }
-        finally {
-            if (transaction.isActive()){
-                transaction.rollback();
-            }
-            entityManager.close();
-            entityManagerFactory.close();
-        }
-
+        Check check=new Check();
+        check.isValid(userName,password,user);
         return user;
     }
 
