@@ -1,13 +1,10 @@
 package com.example.loginproject;
 
-import entity.UsersEntity;
-import jakarta.persistence.*;
-
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.util.List;
+
 /**
  * @version 25/06/2023
  * @author Ariel Dobkin
@@ -18,6 +15,7 @@ public class LoginPanel extends JDialog {
     private JButton OKButton;
     private JButton cancelButton;
     private JPanel LoginForm;
+    private JButton registerButton;
 
 
     /**
@@ -37,9 +35,10 @@ public class LoginPanel extends JDialog {
             public void actionPerformed(ActionEvent e) {
                 String userName=tfUserName.getText();
                 String password=String.valueOf(tfPassword.getPassword());
-                user=getAuthenticatedUser(userName,password);
-                if (user!=null){
+                boolean flag=getAuthenticatedUser(userName,password);
+                if (flag){
                     dispose();//סגירת הטופס
+                    System.out.println("Login successfully");
                 }
                 else {
                     dispose();
@@ -51,7 +50,16 @@ public class LoginPanel extends JDialog {
 
             }
         });
+        registerButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
 
+                dispose();
+                setVisible(false);
+                NewUser newUser=new NewUser(null);
+                newUser.setVisible(true);
+            }
+        });
         cancelButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
@@ -61,29 +69,24 @@ public class LoginPanel extends JDialog {
             }
         });
         setVisible(true);
+
     }
-    public UsersEntity user;
 
     /**
      * @param userName The username provided as input in the login form
      * @param password The password provided as input in the login form
      * @return An instance of user type if found otherwise null
      */
-    private UsersEntity getAuthenticatedUser(String userName, String password) {
-        user=null;
+    private boolean getAuthenticatedUser(String userName, String password) {
+        //user=null;
         Check check=new Check();
-        check.isValid(userName,password,user);
-        return user;
+        check.tryLogin(userName,password);
+        return (check.isValid(userName,password));
     }
 
     public static void main(String[] args) {
         LoginPanel loginPanel=new LoginPanel(null);
-        UsersEntity user= loginPanel.user;
-        if (user!=null){
-            System.out.println("successful");
-        }
-        else {
-            System.out.println("wrong");
-        }
+
+
     }
 }

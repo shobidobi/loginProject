@@ -6,6 +6,11 @@
     <persistence-unit name="default">
 
         <class>entity.UsersEntity</class>
+        <class>entity.DetailUserEntity</class>
+        <class>entity.GameHistoryEntity</class>
+        <class>entity.GamesEntity</class>
+        <class>entity.PasswordsEntity</class>
+        <class>entity.TryLoginEntity</class>
         <properties>
             <property name="hibernate.connection.url" value="jdbc:postgresql://localhost:5432/login"/>
             <property name="hibernate.connection.driver_class" value="org.postgresql.Driver"/>
