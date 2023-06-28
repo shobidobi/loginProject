@@ -8,6 +8,7 @@ import java.awt.event.ActionListener;
 /**
  * @version 25/06/2023
  * @author Ariel Dobkin
+ * Description: Description: The class represents the login form to the system
  */
 public class LoginPanel extends JDialog {
     private JTextField tfUserName;

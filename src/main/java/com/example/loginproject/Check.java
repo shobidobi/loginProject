@@ -10,6 +10,7 @@ import java.util.List;
 /**
  * @version 25/06/2023
  * @author Ariel Dobkin
+ * Description: The department handles all the fetching of the information from the database and checking it.
  */
 public class Check {
     EntityManagerFactory entityManagerFactory= Persistence.createEntityManagerFactory("default");

@@ -5,6 +5,11 @@ import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
+/**
+ * @version 27/06/23
+ * @author Ariel Dobkin
+ * Description: The class represents the registration form for a new user
+ */
 public class NewUser extends JDialog {
     private JPanel Register;
     private JTextField tfUserName;
@@ -37,7 +42,9 @@ public class NewUser extends JDialog {
         cancelButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-
+                dispose();
+                System.out.println("page closed(new user)");
+                System.exit(0);
             }
         });
     }
