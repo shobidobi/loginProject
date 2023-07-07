@@ -1,4 +1,4 @@
-package com.example.loginproject;
+package Login;
 
 import entity.PasswordsEntity;
 import entity.TryLoginEntity;
@@ -6,7 +6,7 @@ import entity.UsersEntity;
 import jakarta.persistence.*;
 
 import java.util.List;
-
+enum login{user_not_exist,password_not_valid};
 /**
  * @version 25/06/2023
  * @author Ariel Dobkin
@@ -43,6 +43,7 @@ public class Check {
             List<Integer> users=selectDetails_user.getResultList();
             if (users.size()==0){
                 System.out.println("The user does not exist in the system");
+
                 return false;
             }
             //check password table

@@ -1,4 +1,4 @@
-package com.example.loginproject;
+package Login;
 
 import jakarta.ws.rs.GET;
 import jakarta.ws.rs.Path;

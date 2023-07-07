@@ -1,4 +1,4 @@
-package com.example.loginproject;
+package Login;
 
 import javax.swing.*;
 import java.awt.*;
@@ -82,7 +82,8 @@ public class LoginPanel extends JDialog {
         //user=null;
         Check check=new Check();
         check.tryLogin(userName,password);
-        return (check.isValid(userName,password));
+        boolean Authenticate=(check.isValid(userName,password));
+        return Authenticate;
     }
 
     public static void main(String[] args) {
