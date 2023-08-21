@@ -5,8 +5,10 @@ import entity.TryLoginEntity;
 import entity.UsersEntity;
 import jakarta.persistence.*;
 
+import javax.swing.*;
+import java.awt.*;
 import java.util.List;
-enum login{user_not_exist,password_not_valid};
+enum login{user_not_exist,password_not_valid,Login_successfully};
 /**
  * @version 25/06/2023
  * @author Ariel Dobkin
@@ -32,8 +34,8 @@ public class Check {
      * @param password The password provided as input in the login form.
      * @return true if the user it exists in the database, otherwise false.
      */
-    public boolean isValid(String user_name, String password){
-        boolean flag=false;
+    public login isValid(String user_name, String password){
+        login flag;
         try {
             transaction.begin();
             //check user table
@@ -43,8 +45,7 @@ public class Check {
             List<Integer> users=selectDetails_user.getResultList();
             if (users.size()==0){
                 System.out.println("The user does not exist in the system");
-
-                return false;
+                return login.user_not_exist;
             }
             //check password table
             int user_id=users.get(0);
@@ -54,11 +55,11 @@ public class Check {
             selectDetails_password.setParameter("p",password);
             List<String> passwords=selectDetails_password.getResultList();
             if (passwords.size()==0){
-                flag=false;
+                flag=login.password_not_valid;
                 System.out.println("the password are not valid");
             }
             else{
-                flag=true;
+                flag=login.Login_successfully;
             }
             transaction.commit();
         }

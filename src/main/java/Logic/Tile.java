@@ -1,12 +1,18 @@
 package Logic;
 
+import javax.swing.*;
+
 public class Tile {
     private Number number;
     private Color color;
 
+    private ImageIcon image;
+
     public Tile(Number number, Color color) {
         this.number = number;
         this.color = color;
+        this.image=new ImageIcon();
+        this.image=getImages();
     }
     public Number getNumber() {
         return number;
@@ -22,6 +28,28 @@ public class Tile {
 
     public void setColor(Color color) {
         this.color = color;
+    }
+    public ImageIcon getImages() {
+        String colorS="",numberS;
+        String s="C:\\Users\\ariel\\IdeaProjects\\loginProject\\src\\main\\java\\images\\";
+        switch (color){
+            case red:
+                colorS=Color.red.name();
+                break;
+            case black:
+                colorS=Color.black.name();
+                break;
+            case yellow:
+                colorS=Color.yellow.name();
+                break;
+            case blue:
+                colorS=Color.blue.name();
+                break;
+        }
+        if (number!=Number.joker){numberS=Integer.toString(TileToNum(number,GameStatus.playing));}
+        else {numberS="joker";}
+        image.setImage(new ImageIcon(s+numberS+"-"+colorS+".png").getImage());
+        return image;
     }
 
     /**
@@ -57,7 +85,7 @@ public class Tile {
                 return 12;
             case Thirteen:
                 return 13;
-            case Joker:
+            case joker:
                 if (gameStatus==GameStatus.end){return 30;}
                 if (gameStatus==GameStatus.playing){return -1;}
         }

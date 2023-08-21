@@ -5,6 +5,8 @@ import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
+import static javax.swing.JOptionPane.showMessageDialog;
+
 /**
  * @version 25/06/2023
  * @author Ariel Dobkin
@@ -36,19 +38,26 @@ public class LoginPanel extends JDialog {
             public void actionPerformed(ActionEvent e) {
                 String userName=tfUserName.getText();
                 String password=String.valueOf(tfPassword.getPassword());
-                boolean flag=getAuthenticatedUser(userName,password);
-                if (flag){
+                login flag=getAuthenticatedUser(userName,password);
+                if (flag==login.Login_successfully){
                     dispose();//סגירת הטופס
                     System.out.println("Login successfully");
                 }
-                else {
-                    dispose();
-                    setVisible(false);
-                    /*מעבר בין טפסים */
-                    LoginP l=new LoginP(null);
-                    l.setVisible(true);
+                else if (flag==login.password_not_valid){
+                    JLabel label=new JLabel("One of the details is incorrect");
+                    label.setFont(new Font("Arial", Font.BOLD,40));
+                    JOptionPane.showMessageDialog(null,label);
                 }
-
+                else {
+                    JLabel label=new JLabel("The user does not exist in the system");
+                    label.setFont(new Font("Arial", Font.BOLD,40));
+                    JOptionPane.showMessageDialog(null,label);
+                }
+                dispose();
+                setVisible(false);
+                    /*מעבר בין טפסים */
+//                    LoginP l=new LoginP(null);
+//                    l.setVisible(true);
             }
         });
         registerButton.addActionListener(new ActionListener() {
@@ -76,13 +85,13 @@ public class LoginPanel extends JDialog {
     /**
      * @param userName The username provided as input in the login form
      * @param password The password provided as input in the login form
-     * @return An instance of user type if found otherwise null
+     * @return An enum value describing the connection problems or its success.
      */
-    private boolean getAuthenticatedUser(String userName, String password) {
+    private login getAuthenticatedUser(String userName, String password) {
         //user=null;
         Check check=new Check();
         check.tryLogin(userName,password);
-        boolean Authenticate=(check.isValid(userName,password));
+        login Authenticate=(check.isValid(userName,password));
         return Authenticate;
     }
 

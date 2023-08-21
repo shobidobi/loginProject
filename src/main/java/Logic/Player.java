@@ -10,4 +10,10 @@ public class Player {
     private DetailUserEntity detailUser;
     private ArrayList<Tile> deckPlayer;
 
+    public Player(UsersEntity usersEntity, DetailUserEntity detailUser, ArrayList<Tile> deckPlayer) {
+        this.usersEntity = usersEntity;
+        this.detailUser = detailUser;
+        this.deckPlayer = deckPlayer;
+    }
+
 }

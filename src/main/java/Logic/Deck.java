@@ -27,7 +27,7 @@ public class Deck {
             tilesDeck.add(tileB);
             tileR=new Tile(num,Color.red);
             tilesDeck.add(tileR);
-            if(num!=Number.Joker){
+            if(num!=Number.joker){
                 tileY=new Tile(num,Color.yellow);
                 tilesDeck.add(tileY);
                 tileU=new Tile(num,Color.blue);
@@ -35,7 +35,7 @@ public class Deck {
             }
         }
         for (Number num : Number.values()) {
-            if (num==Number.Joker){continue;}
+            if (num==Number.joker){continue;}
             tileB=new Tile(num,Color.black);
             tilesDeck.add(tileB);
             tileR=new Tile(num,Color.red);
